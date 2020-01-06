@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Question;
+use App\Entity\Answer;
 use App\Form\QuestionType;
 use App\Repository\QuestionRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -29,11 +30,19 @@ class QuestionController extends AbstractController
     }
 
     /**
-     * @Route("/new", name="question_new", methods={"GET","POST"})
+     * @Route("/{nb}/new", name="question_new", methods={"GET","POST"})
      */
-    public function new(Request $request): Response
+    public function new(Request $request, int $nb): Response
     {
         $question = new Question();
+
+        if ($nb<2) {
+            $nb = 2;
+        }
+        for ($i=0; $i < $nb; $i++) { 
+            $answer = new Answer();
+            $question->addAnswer($answer);
+        }    
         $form = $this->createForm(QuestionType::class, $question);
         $form->handleRequest($request);
 

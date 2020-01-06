@@ -1,9 +1,9 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Answer index{% endblock %}
+{% block title %}{{ 'Answer index'|trans }}{% endblock %}
 
 {% block body %}
-    <h1>Answer index</h1>
+    <h1>{{ 'Answer index'|trans }}</h1>
 
     <table class="table">
         <thead>
@@ -21,17 +21,17 @@
                 <td>{{ answer.text }}</td>
                 <td>{{ answer.correct }}</td>
                 <td>
-                    <a class="btn btn-primary" href="{{ path('answer_show', {'id': answer.id}) }}">show</a>
-                    <a class="btn btn-primary" href="{{ path('answer_edit', {'id': answer.id}) }}">edit</a>
+                    <a class="btn btn-primary" href="{{ path('answer_show', {'id': answer.id}) }}">{{ 'Show'|trans }}</a>
+                    <a class="btn btn-warning" href="{{ path('answer_edit', {'id': answer.id}) }}">{{ 'Edit'|trans }}</a>
                 </td>
             </tr>
         {% else %}
             <tr>
-                <td colspan="4">no records found</td>
+                <td colspan="4">{{ 'No records found'|trans }}</td>
             </tr>
         {% endfor %}
         </tbody>
     </table>
 
-    <a class="btn btn-primary" href="{{ path('answer_new') }}">Create new</a>
+    <a class="btn btn-primary" href="{{ path('answer_new') }}">{{ 'Create new'|trans }}</a>
 {% endblock %}

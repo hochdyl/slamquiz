@@ -25,6 +25,13 @@ class QuestionType extends AbstractType
             'choice_label' => 'longname',
             'multiple' => true
         ));
+
+        $builder->add('answers', CollectionType::class, array(
+            'entry_type' => AnswerType::class,
+            'entry_options' => array(
+                'label' => false,
+            )
+        ));
     }
 
     public function configureOptions(OptionsResolver $resolver)

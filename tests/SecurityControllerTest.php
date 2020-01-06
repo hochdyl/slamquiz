@@ -119,10 +119,10 @@ class SecurityControllerTest extends WebTestCase
         $this->assertSame(Response::HTTP_OK, $this->client->getResponse()->getStatusCode());
         
         // Asserts that the response content contains 'Create new category' in 'h1' tag
-        $this->assertSelectorTextContains('html title', 'New Category');
+        $this->assertSelectorTextContains('html title', 'New category');
         /* 
         Ecrire ici le code pour vérifier que, si l'utilisateur est connecté avec le rôle ROLE_ADMIN, 
         la requête '/category/new' renvoie 'Create new category' dans la balise 'h1'
         */
-    }            
+    }       
 }

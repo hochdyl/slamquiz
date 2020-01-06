@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello DefaultController!{% endblock %}
+{% block title %}{{ 'Hello default Controller !'|trans }}{% endblock %}
 
 {% block body %}
 <style>
@@ -11,17 +11,17 @@
 <div class="example-wrapper">
 
     <div class="jumbotron"> 
-        <h1 class="d-flex justify-content-center">WELCOME TO SLAMQUIZ</h1>
-        <h4 class="d-flex justify-content-center">Developped with symfony 4</h4><br>
+        <h1 class="d-flex justify-content-center">{{ 'WELCOME TO SLAM QUIZZ'|trans }}</h1>
+        <h4 class="d-flex justify-content-center">{{ 'Developped with symfony 4'|trans }}</h4><br>
         <hr/>
-        <p>What you can do : </p>
+        <p>{{ 'What you can do :'|trans }}</p>
         <ul>
-            <li>Dynamic and motivating content</li>
-            <li>Automatic rating</li>
-            <li>Results in real time (received by mail)</li>
-            <li>Test your students with a smartphone</li>
+            <li>{{ 'Dynamic and motivating content'|trans }}</li>
+            <li>{{ 'Automatic rating'|trans }}</li>
+            <li>{{ 'Results in real time (received by mail)'|trans }}</li>
+            <li>{{ 'Test your students with a smartphone'|trans }}</li>
         </ul>
-        <p>Note : This is a free software, you can copy and edit it</p>
+        <p>{{ 'Note : This is a free software, you can copy and edit it'|trans }}</p>
     </div>
 
 </div>
