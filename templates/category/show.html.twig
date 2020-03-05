@@ -19,6 +19,12 @@
                 <th>Longname</th>
                 <td>{{ category.longname }}</td>
             </tr>
+            <tr>
+                <th>Quiz associés</th>
+                {% for quiz in category.quizzes %}
+                    <td>{{ quiz }}</td>
+                {% endfor %}
+            </tr>
         </tbody>
     </table>
 

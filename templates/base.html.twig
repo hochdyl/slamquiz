@@ -24,16 +24,10 @@
             <li class="nav-item active">
                 <a class="nav-link" href="/">Accueil</a>
             </li>
-            <li class="nav-item">
-                <a class="nav-link" href="{{ path('category_index') }}">Category</a>
-            </li>
 
-            {% if is_granted("ROLE_SUPERADMIN") %}
+            {% if is_granted('ROLE_USER') %}
             <li class="nav-item">
-                <a class="nav-link" href="{{ path('user_index') }}">User</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="{{ path('answer_index') }}">Answer</a>
+                <a class="nav-link" href="{{ path('quiz_index') }}">Quiz</a>
             </li>
             {% endif %}
 
@@ -41,16 +35,27 @@
             <li class="nav-item">
                 <a class="nav-link" href="{{ path('question_index') }}">Question</a>
             </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{{ path('category_index') }}">Category</a>
+            </li>
+            {% endif %}
+
+            {% if is_granted("ROLE_SUPERADMIN") %}
+            <li class="nav-item">
+                <a class="nav-link" href="{{ path('user_index') }}">User</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{{ path('workout_index') }}">Workout</a>
+            </li>
             {% endif %}
             </ul>
-
 
             {% if is_granted('IS_AUTHENTICATED_FULLY') %}
             <a href="/logout"><button class="btn btn-danger my-2 my-sm-0" type="submit">Logout</button></a>
             {% endif %}
 
             {% if not is_granted('IS_AUTHENTICATED_FULLY') %}
-            <a href="/login"><button class="btn btn-success my-2 my-sm-0">Sign in</button></a>
+            <a href="/login"><button class="btn btn-success my-2 my-sm-0 mr-2">Sign in</button></a>
             <a href="/register"><button class="btn btn-success my-2 my-sm-0">Sign up</button></a>
             {% endif %}
 

@@ -12,6 +12,8 @@
 
     <div class="jumbotron"> 
         <h1 class="d-flex justify-content-center">{{ 'WELCOME TO SLAM QUIZZ'|trans }}</h1>
+
+        {% if access == true %}
         <h4 class="d-flex justify-content-center">{{ 'Developped with symfony 4'|trans }}</h4><br>
         <hr/>
         <p>{{ 'What you can do :'|trans }}</p>
@@ -22,6 +24,8 @@
             <li>{{ 'Test your students with a smartphone'|trans }}</li>
         </ul>
         <p>{{ 'Note : This is a free software, you can copy and edit it'|trans }}</p>
+
+        {% endif %}
     </div>
 
 </div>

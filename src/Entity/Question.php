@@ -44,12 +44,17 @@ class Question
      */
     private $answers;
 
+    public function __toString() {
+        return $this->text;
+    }
+
     public function __construct()
     {
         $this->categories = new ArrayCollection();
         $this->answers = new ArrayCollection();
         $this->setCreatedAt(new \DateTime());
         $this->setUpdatedAt(new \DateTime());
+        $this->quizzes = new ArrayCollection();
     }
 
     public function getId(): ?int

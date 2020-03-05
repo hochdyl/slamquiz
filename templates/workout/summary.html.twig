@@ -1,0 +1,26 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ 'Hello default Controller !'|trans }}{% endblock %}
+
+{% block body %}
+<style>
+    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
+    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
+</style>
+
+<div class="example-wrapper">
+
+    <div class="jumbotron"> 
+        <h1 class="d-flex justify-content-center">{{ 'QUIZ'|trans }}</h1>
+        <h4>Titre : {{quiz.title}}</h4>
+        <h4>Summary : {{quiz.summary}}</h4>
+        <h4>Categories : 
+            {% for category in quiz.categories %}
+                {{category}},
+            {% endfor %}
+        </h4>
+        <a href="{{ path('workout_new', {'quiz': quiz.id}) }}">Démarrer</a>
+    </div>
+
+</div>
+{% endblock %}
