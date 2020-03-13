@@ -42,15 +42,15 @@ class QuestionRepository extends ServiceEntityRepository
     }
     */
 
-    /*
-    public function findOneBySomeField($value): ?Question
+    public function findOneRandomByCategories($categories): ?Question
     {
-        return $this->createQueryBuilder('q')
-            ->andWhere('q.exampleField = :val')
-            ->setParameter('val', $value)
-            ->getQuery()
-            ->getOneOrNullResult()
-        ;
+        $builder = $this->createQueryBuilder('q');
+        $builder->innerJoin('q.categories', 'categories');
+        $builder->andWhere($builder->expr()->in('categories',':categories'))->setParameter('categories',$categories);
+
+        $questions = $builder->getQuery()->getResult();
+        $question = $questions[rand(1, sizeof($questions))-1];
+
+        return $question;
     }
-    */
 }

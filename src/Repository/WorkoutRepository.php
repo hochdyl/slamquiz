@@ -36,15 +36,14 @@ class WorkoutRepository extends ServiceEntityRepository
     }
     */
 
-    /*
-    public function findOneBySomeField($value): ?Workout
+    public function findOneByUserId($id): ?Workout
     {
         return $this->createQueryBuilder('w')
-            ->andWhere('w.exampleField = :val')
-            ->setParameter('val', $value)
+            ->andWhere('w.associated_user = :val')
+            ->setParameter('val', $id)
+            ->andWhere('w.completed = false')
             ->getQuery()
             ->getOneOrNullResult()
         ;
     }
-    */
 }

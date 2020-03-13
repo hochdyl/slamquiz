@@ -62,6 +62,8 @@ class Workout
     public function __construct()
     {
         $this->setStartedAt(new \DateTime());
+        $this->setCurrentQuestionNumber(0);
+        $this->setCompleted(false);
     }
 
     public function getId(): ?int

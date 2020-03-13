@@ -5,8 +5,10 @@ namespace App\Controller;
 use App\Entity\Quiz;
 use App\Entity\Workout;
 use App\Form\WorkoutType;
-use Doctrine\ORM\EntityManager;
+use App\Repository\QuizRepository;
 use App\Repository\WorkoutRepository;
+use App\Repository\QuestionRepository;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -27,26 +29,72 @@ class WorkoutController extends AbstractController
             'workouts' => $workoutRepository->findAll(),
         ]);
     }
-    
+
     /**
-     * @Route("/new", name="workout_new", methods={"GET","POST"})
+     * @Route("/active", name="workout_active", methods={"GET","POST"})
      */
-    public function new(Request $request, EntityManager $em, UserInterface $user): Response
+    public function new(Request $request, EntityManagerInterface $em, UserInterface $user, WorkoutRepository $wr, QuestionRepository $qer, QuizRepository $qzr): Response
     {
+        $quizId = $request->query->has('quiz');
+        $questionNb = $request->query->has('currentQuestion');
         $this->em = $em;
 
-        $workout = new Workout();
-        $userId = $user->getId(); 
+        $userId = $user->getId();
+        
+        $workout = $wr->findOneByUserId($userId);
+        if (!$workout) {
+            $workout = new Workout();
+            $quiz = $qzr->findOneById($quizId);
+            $workout->setQuiz($quiz);
+            $workout->setAssociatedUser($userId);
+        }
+
+        $workout->setCurrentQuestionNumber($question+1);
+
+        $this->em->persist($workout);
+        $this->em->flush();
+
+        $questionNb = $workout->getCurrentQuestionNumber();
+        $categories = $workout->getQuiz()->getCategories();
+
+        $question = $qer->findOneRandomByCategories($categories);
+
+        if ($questionNb < $workout->getQuiz()->getQuestionsNb()) {
+            $userRoles = $user->getRoles();
+            $roleType = 'USER';
+    
+            foreach ($userRoles as $role) {
+                if ($role == 'ROLE_ADMIN' || $role == 'ROLE_SUPERADMIN') $roleType = 'ADMIN';
+            }
+            
+            switch ($roleType) {
+                case 'USER' :
+                    return $this->render('workout/question.html.twig', [
+                        'questionText' => $question->getText(),
+                    ]);
+                break;
+    
+                case 'ADMIN' :
+                    return $this->render('workout/question.html.twig', [
+                        'questionText' => $question->getText(),
+                    ]);
+                break;
+            }
+        } else {
+            return $this->render('index.html.twig');
+        }
+ 
+
+
+        // Workout first create
+        $workout->setAssociatedUser($userId);
+        $workout->setQuiz($quiz);
+        
 
         $em->persist($workout);
         $em->flush();
 
         return $this->redirectToRoute('workout_index');
-
-        return $this->render('workout/new.html.twig', [
-            'workout' => $workout,
-            'form' => $form->createView(),
-        ]);
     }
 
     /**
